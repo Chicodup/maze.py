@@ -38,7 +38,7 @@ class Player(Sprite):
             self.rect.y -= self.speed
         if key_pressed[K_s]and self.rect.bottom < HEIGHT:
             self.rect.y += self.speed
-        if key_pressed[K_a]and self.rect.left < WIDTH:
+        if key_pressed[K_a]and self.rect.left > 0:
             self.rect.x -= self.speed
         if key_pressed[K_d]and self.rect.right < WIDTH:
             self.rect.x += self.speed
