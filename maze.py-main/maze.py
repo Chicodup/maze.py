@@ -7,7 +7,7 @@ game_over_text = font1.render("Game Over", True,(255,0,0))
 game_win_text_over_text = font1.render("WIN", True,(0,255,0))
 mixer.init()
 mixer.music.load('chicken_song.mp3')
-mixer.music.play()
+#mixer.music.play()
 mixer_music.set_volume(0.1)
 #створи вікно гри;
 MAP_WIDTH, MAP_HEIGHT = 25,20
@@ -19,7 +19,7 @@ clock = time.Clock()
 #задай фон сцени
 bg = image.load('Village landscape Free Pixel Art Background.png')
 bg = transform.scale(bg,(MAP_WIDTH*TILESIZE, MAP_HEIGHT*TILESIZE))
-cyborg_img = image.load("╛▐╣л╗ї2.png")
+cyborg_img = image.load("parrot.png")
 player_img = image.load("egg.png")
 wall_img = image.load("wall.png")
 gold_img = image.load("nest_64x64.png")
@@ -59,20 +59,27 @@ class Player(Sprite):
         enemy_collide = sprite.spritecollide(self,enemys,False,sprite.collide_mask)
         if len(enemy_collide) > 0:
             self.hp -= 100
+        enemy_collide = sprite.spritecollide(self,poshalkikill,False,sprite.collide_mask)
+        if len(enemy_collide) > 0:
+            self.hp -= 100
 
 class Enemy(Sprite):
     def __init__(self,sprite_img,width,height,x,y):
         super().__init__(sprite_img,width,height,x,y)
         self.damage = 1
         self.speed = 2.1
+        self.leftimage = self.image
+        self.rightimage = transform.flip(self.image,True,False)
         self.dir_list = ["right","left","up","down"]
         self.dir = choice(self.dir_list)
     def update(self):
         old_pos = self.rect.x, self.rect.y
         if self.dir == "right":
             self.rect.x += self.speed
+            self.image = self.rightimage
         elif self.dir == "left":
             self.rect.x -= self.speed
+            self.image = self.leftimage
         elif self.dir == "up":
             self.rect.y -= self.speed
         elif self.dir == "down":
@@ -81,13 +88,19 @@ class Enemy(Sprite):
         if len(collide_list) > 0:
             self.dir = choice(self.dir_list)
             self.rect.x, self.rect.y = old_pos
+        collide_list = sprite.spritecollide(self,poshalkas,False,sprite.collide_mask)
+        if len(collide_list) > 0:
+            self.dir = choice(self.dir_list)
+            self.rect.x, self.rect.y = old_pos
+        
+
 
 player = Player(player_img,TILESIZE-5,TILESIZE-5,300,300)
 walls = sprite.Group()
 enemys = sprite.Group()
 
-
-
+poshalkas = sprite.Group()
+poshalkikill = sprite.Group()
 
 with open("map.txt", "r") as f:
     map = f.readlines()
@@ -97,6 +110,24 @@ with open("map.txt", "r") as f:
         for symwol in line:
             if symwol == "w":
                 walls.add(Sprite(wall_img, TILESIZE,TILESIZE,x,y))
+            if symwol == "t":
+                poshalko = Sprite(wall_img, TILESIZE,TILESIZE,x,y)
+                poshalkas.add(poshalko)
+            if symwol == "u":
+                poshalk = Sprite(wall_img, TILESIZE,TILESIZE,x,y)
+                poshalkas.add(poshalk)
+            if symwol == "n":
+                poshal = Sprite(wall_img, TILESIZE,TILESIZE,x,y)
+                poshalkas.add(poshal)
+            if symwol == "z":
+                posha = Sprite(wall_img, TILESIZE,TILESIZE,x,y)
+                poshalkas.add(posha)
+            if symwol == "q":
+                posh = Sprite(wall_img, TILESIZE,TILESIZE,x,y)
+                poshalkikill.add(posh)
+                poshalkas.add(posh)
+            
+            
             if symwol == "p":
                 player.rect.x = x
                 player.rect.y = y
@@ -121,9 +152,25 @@ while run:
     window.blit(bg, (0,0))
     if player.hp <= 0:
         finish = True
+    
+    if sprite.collide_mask(player,poshalko):
+        player.rect.x = 30
+        player.rect.y= 550
+    if sprite.collide_mask(player,poshalk):
+        player.rect.x = 660
+        player.rect.y= 30
+    if sprite.collide_mask(player,poshal):
+        player.rect.x = 600
+        player.rect.y= 600
+    if sprite.collide_mask(player,posha):
+        player.rect.x = 30
+        player.rect.y = 30
+    if sprite.collide_mask(player,posh):
+        player.hp = 0
+
     if sprite.collide_mask(player,gold):
         finish = True
-        game_over_text = font1.render("WIN", True,(0,255,0))
+        game_over_text = font1.render("     WIN", True,(0,255,0))
 
     all_sprites.draw(window)
     if not finish:
