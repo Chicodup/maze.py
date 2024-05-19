@@ -7,9 +7,9 @@ w                       eeeew
 w     w  w  w  w  w  w wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww        w
 wwqww                   w w
 w  w   w w   wwqww   qwww       w  w
-t      w q     wwww     w    w  w
+t      w q     wwww     q    w  w
 w    w   www            w w   w
-w     w      wwwnwwwwwwww        w    ww ww  w
+w     w      qwwnwwwwwwww        w    ww ww  w
 ww     ww    w     w   ww ww    w
 we    ee  ww            w w w  w
 w  ww ww  ww   wqqqwwwwzw  w ww ww  ww ww
@@ -17,4 +17,4 @@ wwqweew   ee   w   wqw  ww  g w   g w ww
 w   w     wwwwww    w   w ww  w  w  w
 w             w     e g w w  w
 w    w        q w e w e w www w   w
-wwwuwwqwwwwwwwwwwwwwwwwwww
+wwwuwwqwwwwwwwwwwwqwwwwwww
