@@ -8,7 +8,7 @@ game_win_text_over_text = font1.render("WIN", True,(0,255,0))
 mixer.init()
 mixer.music.load('chicken_song.mp3')
 #mixer.music.play()
-mixer_music.set_volume(0.1)
+mixer_music.set_volume(0.03)
 #створи вікно гри;
 MAP_WIDTH, MAP_HEIGHT = 25,20
 TILESIZE = 33
@@ -44,13 +44,13 @@ class Player(Sprite):
     def update(self):
         key_pressed = key.get_pressed()
         old_pos = self.rect.x, self.rect.y
-        if key_pressed[K_w] and self.rect.y > 0:
+        if (key_pressed[K_w] or key_pressed[K_UP])and self.rect.y > 0:
             self.rect.y -= self.speed
-        if key_pressed[K_s]and self.rect.bottom < HEIGHT:
+        if (key_pressed[K_s]or key_pressed[K_DOWN])and self.rect.bottom < HEIGHT:
             self.rect.y += self.speed
-        if key_pressed[K_a]and self.rect.left > 0:
+        if (key_pressed[K_a] or key_pressed[K_LEFT])and self.rect.left > 0:
             self.rect.x -= self.speed
-        if key_pressed[K_d]and self.rect.right < WIDTH:
+        if (key_pressed[K_d]or key_pressed[K_RIGHT]) and self.rect.right < WIDTH:
             self.rect.x += self.speed
 
         collide_list = sprite.spritecollide(self,walls,False,sprite.collide_mask)
